@@ -1,0 +1,50 @@
+		*DATE AND TIME DATA TYPES FORMAT
+
+DATE : (YYYY-MM-DD)
+TIME : (HHH-MM-SS)
+YEAR : (YYYY)
+
+*to create database -> CREATE DATABASE ajey ;
+*to delete database -> DROP DATABASE ajey ;
+
+*to display structure of table -> DESC ajey ;
+
+
+*if we want to create duplicate table -> CREATE TABLE ajey2 AS SELECT *FROM ajey;
+*if we want to duplicate particular fields -> CREATE TABLE ajey2 AS id, name, age FROM ajey;
+
+
+---ALTER---
+
+*(ADD) if we want to add new column to the table  -> ALTER TABLE ajey ADD address VARCHAR(30);
+*or if we want to add new column after specific colum then we have to use AFTER ->  ALTER TABLE ajey ADD address VARCHAR(30) AFTER age;
+*to add column at first -> ALTER TABLE ajey ADD address VARCHAR (10)  FIRST;
+
+
+MODIFY 
+
+*to change constraints size ex. VARCHAR(10) TO VARCHAR(20), WE CAN ALSO APPLY KEY ->  ALTER TABLE ajey MODIFY  name VARCHAR(20) PRIMARY KEY;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

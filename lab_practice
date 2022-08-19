@@ -1,0 +1,189 @@
+mysql> create database dbms1;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use dbms1;
+Database changed
+mysql> create table order_detail
+    -> (Orderid int primary key,Supplier_id int,Order_date date,Quantity int,Price numeric(10,2)default"1000");
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> desc order_detail;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| Orderid     | int(11)       | NO   | PRI | NULL    |       |
+| Supplier_id | int(11)       | YES  |     | NULL    |       |
+| Order_date  | date          | YES  |     | NULL    |       |
+| Quantity    | int(11)       | YES  |     | NULL    |       |
+| Price       | decimal(10,2) | YES  |     | 1000.00 |       |
++-------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+ mysql> insert into order_detail values(1,101,"1995-12-04",10,1000);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> mysql> insert into order_detail values(2,102,"1995-12-15",20,1500);
+Query OK, 1 row affected (0.39 sec)
+
+mysql> insert into order_detail values(3,103,"1997-01-26",15,2000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into order_detail values(4,104,"1998-04-29",10,2500);
+Query OK, 1 row affected (0.32 sec)
+
+mysql> select*from order_detail;
++---------+-------------+------------+----------+---------+
+| Orderid | Supplier_id | Order_date | Quantity | Price   |
++---------+-------------+------------+----------+---------+
+|       1 |         101 | 1995-12-04 |       10 | 1000.00 |
+|       2 |         102 | 1995-12-15 |       20 | 1500.00 |
+|       3 |         103 | 1997-01-26 |       15 | 2000.00 |
+|       4 |         104 | 1998-04-29 |       10 | 2500.00 |
++---------+-------------+------------+----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create table supplier_detail
+    -> (Supplier_id int primary key,Supplier_name varchar(20)unique,Supplier_address varchar(20));
+Query OK, 0 rows affected (1.31 sec)
+
+mysql> insert into supplier_detail values(101,"IBM","New York");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into supplier_detail values(102,"Hewlett Packard","California");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into supplier_detail values(103,"Microsoft","New Mexico");
+Query OK, 1 row affected (0.30 sec)
+
+mysql> insert into supplier_detail values(104,"NVIDIA","New York");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into supplier_detail values(105,"Intel","California");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select*from supplier_detail;
++-------------+-----------------+------------------+
+| Supplier_id | Supplier_name   | Supplier_address |
++-------------+-----------------+------------------+
+|         101 | IBM             | New York         |
+|         102 | Hewlett Packard | California       |
+|         103 | Microsoft       | New Mexico       |
+|         104 | NVIDIA          | New York         |
+|         105 | Intel           | California       |
++-------------+-----------------+------------------+
+5 
+
+mysql> insert into order_detail(orderid,order_date,quantity)values(5,"2022-01-24",20);
+Query OK, 1 row affected (0.14 sec)
+
+mysql> select*from order_detail;
++---------+-------------+------------+----------+---------+
+| Orderid | Supplier_id | Order_date | Quantity | Price   |
++---------+-------------+------------+----------+---------+
+|       1 |         101 | 1995-12-04 |       10 | 1000.00 |
+|       2 |         102 | 1995-12-15 |       20 | 1500.00 |
+|       3 |         103 | 1997-01-26 |       15 | 2000.00 |
+|       4 |         104 | 1998-04-29 |       10 | 2500.00 |
+|       5 |        NULL | 2022-01-24 |       20 | 1000.00 |
++---------+-------------+------------+----------+---------+
+5 rows in set (0.00 sec)
+
+
+mysql>select orderid,supplier_id,order_date,price from order_detail;
++---------+-------------+------------+---------+
+| orderid | supplier_id | order_date | price   |
++---------+-------------+------------+---------+
+|       1 |         101 | 1995-12-04 | 1000.00 |
+|       2 |         102 | 1995-12-15 | 1500.00 |
+|       3 |         103 | 1997-01-26 | 2000.00 |
+|       4 |         104 | 1998-04-29 | 2500.00 |
++---------+-------------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select Supplier_address from supplier_detail where Supplier_id=105;
++------------------+
+| Supplier_address |
++------------------+
+| California       |
++------------------+
+1 row in set (0.24 sec)
+
+mysql> update order_detail set Price=2000 where Quantity<15;
+Query OK, 2 rows affected (0.38 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select*from order_detail;
++---------+-------------+------------+----------+---------+
+| Orderid | Supplier_id | Order_date | Quantity | Price   |
++---------+-------------+------------+----------+---------+
+|       1 |         101 | 1995-12-04 |       10 | 2000.00 |
+|       2 |         102 | 1995-12-15 |       20 | 1500.00 |
+|       3 |         103 | 1997-01-26 |       15 | 2000.00 |
+|       4 |         104 | 1998-04-29 |       10 | 2000.00 |
+|       5 |        NULL | 2022-01-24 |       20 | 1000.00 |
++---------+-------------+------------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select Supplier_name,Supplier_address from supplier_detail where Supplier_name="IBM" and Supplier_address="New York";
++---------------+------------------+
+| Supplier_name | Supplier_address |
++---------------+------------------+
+| IBM           | New York         |
++---------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> update supplier_detail set Supplier_address='Usa' where Supplier_id=105;
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from supplier_detail;
++-------------+-----------------+------------------+
+| Supplier_id | Supplier_name   | Supplier_address |
++-------------+-----------------+------------------+
+|         101 | IBM             | New York         |
+|         102 | Hewlett Packard | California       |
+|         103 | Microsoft       | New Mexico       |
+|         104 | NVIDIA          | New York         |
+|         105 | Intel           | Usa              |
++-------------+-----------------+------------------+
+5 rows in set (0.01 sec)
+
+mysql> select*from order_detail where Quantity>10 and Supplier_id=1;
+Empty set (0.00 sec)
+
+mysql> select*from supplier_detail where not(Supplier_name="Intel");
++-------------+-----------------+------------------+
+| Supplier_id | Supplier_name   | Supplier_address |
++-------------+-----------------+------------------+
+|         101 | IBM             | New York         |
+|         102 | Hewlett Packard | California       |
+|         103 | Microsoft       | New Mexico       |
+|         104 | NVIDIA          | New York         |
++-------------+-----------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> select Supplier_id,Quantity*Price as total_Price from order_detail;
++-------------+-------------+
+| Supplier_id | total_Price |
++-------------+-------------+
+|         101 |    20000.00 |
+|         102 |    30000.00 |
+|         103 |    30000.00 |
+|         104 |    20000.00 |
+|        NULL |    20000.00 |
++-------------+-------------+
+5 rows in set (0.12 sec)
+
+mysql> 
+
+
+mysql> select*from supplier_detail;
++-------------+-----------------+------------------+
+| Supplier_id | Supplier_name   | Supplier_address |
++-------------+-----------------+------------------+
+|         101 | IBM             | New York         |
+|         102 | Hewlett Packard | California       |
+|         103 | Microsoft       | New Mexico       |
+|         104 | NVIDIA          | New York         |
+|         105 | Intel           | California       |
++-------------+-----------------+------------------+
+5 

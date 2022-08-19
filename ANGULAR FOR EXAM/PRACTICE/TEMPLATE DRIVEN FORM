@@ -1,0 +1,115 @@
+**********************TEMPLATE DRIVEN FORM VALIDATION************************
+
+
+-----------------------app.module.ts
+
+import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AboutComponent,
+  ],
+
+  imports: [
+    FormsModule
+  ],
+
+
+-------------------app-routing.module.ts
+
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+
+const routes: Routes = [
+
+  {path: 'about', component: AboutComponent},
+  {path: 'home', component: HomeComponent}
+  
+]; 
+
+
+-------------------app.component.html
+
+<h2> TEMPLATE DRIVEN FORM VALIDATION </h2>
+
+<form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+
+  <table>
+    <tr>
+      <td> <label>Login Form</label> </td>
+    </tr><br>
+
+    <tr>
+      <td> <label> Username </label></td>
+      <td> <input type="text" name="username" #username="ngModel" [(ngModel)]="model.username" required
+          pattern="^[a-zA-Z]$" /> </td>
+      <td>
+        <h5 *ngIf="f.submitted && username.invalid">
+          <h5 *ngIf="username.errors.required"> Username is Required </h5>
+          <h5 *ngIf="username.errors.pattern">Username must be in Alphabet </h5>
+        </h5>
+      </td>
+    </tr>
+
+    <tr>
+      <td> <label>Email </label></td>
+      <td> <input type="text" name="email" #email="ngModel" [(ngModel)]="model.email" required email> </td>
+      <td>
+        <h5 *ngIf="f.submitted && email.invalid">
+          <h5 *ngIf="email.errors.required"> Email is Required </h5>
+          <h5 *ngIf="email.errors.email"> Please Enter Email in Proper Format </h5>
+        </h5>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td> <button>Register</button></td>
+    </tr>
+  </table>
+  <br>
+
+  <router-outlet></router-outlet>
+  <a routerLink = "home">Home</a><br>
+  <a routerLink = "about">About</a><br>
+
+</form>
+
+
+-------------------------------app.component.ts
+
+model: any = {};
+
+  onSubmit()
+  {
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.model));
+  }
+
+
+
+------------------------------home.component.ts
+
+
+ bheem=
+  [
+    {name: 'RAJU', age : 17},
+    {name: 'CHUTKI', age : 55},
+    {name: 'INDUMATI', age : 15},
+  ]
+
+
+------------------------------home.component.html
+
+
+<h1 *ngFor="let item of bheem">
+    {{item.name}},
+    {{item.age}} 
+</h1>
+
+
+
+
+

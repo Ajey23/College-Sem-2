@@ -1,0 +1,138 @@
+
+CREATE TABLE PRAC5
+	(EmpNo NUMERIC(20) PRIMARY KEY,
+	FirstName VARCHAR(20), 
+	LastName VARCHAR(20), 
+	Email VARCHAR(30), 
+	joinDate DATE NOT NULL,
+	Annual_Income NUMERIC (20),
+	Designation VARCHAR (30) DEFAULT 'President');
+
+
+
+INSERT INTO PRAC5 VALUES ('101', "John", "karle", "johnkarle@gmail.com", '2010-12-24', '11000000', "CEO"); 
+
+INSERT INTO PRAC5 VALUES ('102', "Shiv", "Nadar", "ShivNadar@gmail.com", '2011-10-25', '20000000', "President"); 
+
+INSERT INTO PRAC5 VALUES ('103', "Lakshmi", "Mittal", "Lakshmimittal@gmail.com", '2017-01-01', '12000000', "CEO"); 
+
+INSERT INTO PRAC5 VALUES ('104', "Dilip", "Shanghvi", "DilipSanghvi@gmail.com", '2009-04-15', '9000000', "CTO"); 
+
+INSERT INTO PRAC5 VALUES ('105', "Azim", "Premji", "AzimPremji@gmail.com", '2007-04-05', '15000000', "Director"); 
+
+INSERT INTO PRAC5 VALUES ('106', "Ardeshir", "Godrej", "ArdeshirGodrej@gmail.com", '2010-05-05', '18000000', "Vice President"); 
+
+INSERT INTO PRAC5 VALUES ('107', "Mukesh", "Ambani", "MukeshAmbani@gmail.com", '2005-01-01', '20000000'); 
+
+
+SELECT *FROM PRAC5;
+SELECT EmpNo, FirstName, LastName,Email, joinDate, Annual_Income, Designation FROM PRAC5;
+
+
+
+SELECT EmpNo,Email 
+	FROM PRAC5
+	WHERE joinDate > '2012-01-01';
+
+
+SELECT *FROM PRAC5
+	WHERE Annual_Income ='11000000 && 16000000';
+
+
+SELECT *FROM PRAC5
+	WHERE Designation='CTO' OR Designation='CEO';
+
+
+SELECT *FROM PRAC5
+	WHERE Designation=NULL;
+
+
+SELECT FirstName 
+	FROM PRAC5
+	WHERE FirstName LIKE '__l%';
+
+
+SELECT EmpNo, FirstName, LastName, JoinDate, Annual_Income 
+	FROM PRAC5
+	WHERE FirstName LIKE 'M%';
+
+
+SELECT *FROM PRAC5
+	WHERE Designation NOT LIKE 'Director';
+
+
+SELECT EmpNo, FirstName, Designation, Annual_Income
+	FROM PRAC5
+	WHERE Designation = 'CEO' AND Annual_Income >11000000;
+
+
+SELECT *FROM PRAC5
+	WHERE FirstName LIKE 'A%i';
+
+
+
+SELECT *FROM PRAC5 
+	WHERE FirstName LIKE 'M%u%h';
+
+
+SELECT Annual_Income*0.07 
+	FROM PRAC5;
+
+
+SELECT Annual_Income*0.9
+	FROM PRAC5
+	WHERE Annual_Income>15000000;
+
+
+UPDATE PRAC5
+	SET Designation='President'
+	WHERE Designation= NULL;
+
+UPDATE PRAC5
+	SET FirstName='Mita'
+	WHERE FirstName LIKE("J%n");
+
+UPDATE PRAC5
+	SET Annual_Income+(Annual_Income*0.5);
+
+DELETE FROM PRAC5 
+	WHERE Annual_Income>10000000;
+
+
+DELETE FROM PRAC5
+	WHERE Annual_Income BETWEEN 500000 AND 15000000;
+
+
+SELECT SUM(Annual_Income), AVG(Annual_Income), MAX(Annual_Income), MIN(Annual_Income) 
+	FROM PRAC5;
+
+	
+
+Advanced DML
+
+
+ALTER TABLE PRAC5
+	ADD BirthDate DATE ,
+	ADD MobileNumber NUMERIC(12);
+
+
+ALTER TABLE PRAC5
+	MODIFY EmpNo VARCHAR(20);
+
+
+ALTER TABLE PRAC5
+	CHANGE FirstName Fname VARCHAR(30),
+	CHANGE LastName Lname VARCHAR(30);
+
+
+ALTER TABLE PRAC5
+	DROP COLUMN Mobile_Number;
+
+
+ALTER TABLE PRAC5
+	DROP PRIMARY KEY;
+
+
+ALTER TABLE PRAC5
+	MODIFY EmpNo VARCHAR(20) PRIMARY  KEY;
+

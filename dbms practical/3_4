@@ -1,0 +1,102 @@
+CREATE TABLE Book
+(
+BID VARCHAR(10) PRIMARY KEY,
+BookName VARCHAR(50),
+AuthorName VARCHAR(50),
+PublishDate DATE,
+Price NUMERIC(10) NOT NULL,
+Publisher VARCHAR(100) DEFAULT 'Jaico',
+Category VARCHAR(50)
+)
+
+INSERT INTO Book VALUES ("B101", "Pride and Prejudice", "Jane Austen.",'1813-01-28', "200", "Simon & Schuster2", "Self knowledge");
+
+INSERT INTO Book VALUES ("B102", "History of Tom Jones, a Foundling", "Henry Fielding",'1749-02-28', "1489", "Andrew Millar", "Novel");
+
+INSERT INTO Book VALUES ("B103", "Foundation s of Databases", "Serge Abiteboul and Victor Vianu",'1995-01-15', "12400", "Addison-Wesley Longman Publishing Co., Inc.", "Computer Science");
+
+INSERT INTO Book VALUES ("B104", "Principles of Database Systems", "J D Ullman",'1980-03-10', "297", " W. H. Freeman & Co", "Computer Science");
+
+INSERT INTO Book VALUES ("B105", "C Programming AbsoluteBeginnersGuide","Greg Perry and Dean Miller",'2013-04-01', "1531", " Pearson Education India.", "Computer Science");
+
+INSERT INTO Book VALUES ("B106", "Rich Dad Poor Dad","Robert T. Kiyosaki",'2017-04-11', "499", "Plata Publishing ", "Self Knowledge");
+
+INSERT INTO Book VALUES ("B107", "One Small Mistake" ,"Dandy Smith",'2021-12-01', "400", " Embla Books ", "Self Knowledge");
+
+INSERT INTO Book VALUES ("B108", "Fifty Shades of Grey" ,"E. L. James",'2012-04-12', "415", " RHUK ", "Novel");
+
+INSERT INTO Book VALUES ("B109", "To Paradise" ," Hanya Yanagihara", '2022-01-11', "650", " Picador ", "Novel");
+
+INSERT INTO Book VALUES ("B110", "The Elephant in the Womb","Kalki Koechlin",'2021-10-04', "250", " Penguin ", "Self Knowledge");
+
+
+
+SELECT AuthorName
+FROM Book
+WHERE PublishDate >= '1990-01-01'
+
+SELECT *FROM Book
+WHERE Category = "Computer Science"
+
+
+SELECT BookName
+FROM Book
+WHERE BookName LIKE 'P%'
+
+
+SELECT AuthorName
+FROM Book
+WHERE AuthorName LIKE 'S%u'
+
+
+SELECT AuthorName
+FROM Book
+WHERE AuthorName LIKE '___D%'
+
+
+SELECT *FROM Book
+WHERE LENGTH(Category)=5
+
+SELECT *FROM Book
+WHERE LENGTH(Category)>6
+
+SELECT BID,BookName,AuthorName,PublishDate,Price,(Price*0.05) AS Discounted_Price FROM Book; 
+
+
+SELECT BID,BookName,AuthorName,PublishDate,Price,0.07*Price AS 7%_Discount FROM Book:
+
+
+UPDATE Book
+SET AuthorName = 'G.Perry and D.Miller'
+WHERE AuthorName = 'Greg Perry & Dean Miller' 
+
+
+DELETE FROM Book
+WHERE Price<300
+
+ROLLBACK;
+
+UPDATE Book 
+SET Price = Price+100
+WHERE Price > 000
+
+
+UPDATE Book
+SET Price =Price*0.9;
+
+DELETE FROM Book
+WHERE Price>12400;
+
+
+UPDATE Book
+SET Price='300'
+WHERE Price='297';
+
+
+SELECT *FROM Book
+WHERE AuthorName LIKE ("H%y%g");
+
+UPDATE *FROM Book
+SET AuthorName="J.D.Ullam"
+WHERE AuthorName("J%D%U")
+

@@ -1,0 +1,241 @@
+mysql> create database CHakshu;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use CHakshu;
+Database changed
+mysql> create table Customer(id varchar(20)primary key, NAME varchar(20)not null,Age int,ADDRESS varchar(20)default"Ahmedabad",SALARY numeric(10,2),DOB date);
+Query OK, 0 rows affected (1.65 sec)
+
+mysql> insert into Customer(id,name,age,salary,dob) values("c1","Ramesh",32,2000.00,"1987-02-12");
+Query OK, 1 row affected (0.40 sec)
+
+mysql> insert into Customer values("c2","khilan",26,"Delhi",1500.00,"1990-04-21");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into Customer values("c3","Kaushik",25,"Kota",2000.00,"1999-11-24");
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into Customer values("c4","Hardik",23,"Mumbai",6500.00,"1984-05-13");
+Query OK, 1 row affected (1.78 sec)
+
+mysql> insert into Customer values("c5","Deep",24,"Bhopal",8500.00,"1988-02-01");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into Customer values("c6","Komal",27,"Mumbai",4500.00,"2000-02-23");
+Query OK, 1 row affected (0.47 sec)
+
+mysql> insert into Customer values("c7","Muffy",22,"Indore",10000.00,"1998-02-2");
+Query OK, 1 row affected (0.13 sec)
+
+mysql> insert into Customer(id,name,age,salary,dob) values("c8","Chintan",34,1500.00,"1987-11-12");
+Query OK, 1 row affected (0.31 sec)
+
+1->>mysql> select*from Customer;
++----+---------+------+-----------+----------+------------+
+| id | NAME    | Age  | ADDRESS   | SALARY   | DOB        |
++----+---------+------+-----------+----------+------------+
+| c1 | Ramesh  |   32 | Ahmedabad |  2000.00 | 1987-02-12 |
+| c2 | khilan  |   26 | Delhi     |  1500.00 | 1990-04-21 |
+| c3 | Kaushik |   25 | Kota      |  2000.00 | 1999-11-24 |
+| c4 | Hardik  |   23 | Mumbai    |  6500.00 | 1984-05-13 |
+| c5 | Deep    |   24 | Bhopal    |  8500.00 | 1988-02-01 |
+| c6 | Komal   |   27 | Mumbai    |  4500.00 | 2000-02-23 |
+| c7 | Muffy   |   22 | Indore    | 10000.00 | 1998-02-02 |
+| c8 | Chintan |   34 | Ahmedabad |  1500.00 | 1987-11-12 |
++----+---------+------+-----------+----------+------------+
+8 rows in set (0.00 sec)
+
+2->>mysql> select id,name,address from Customer;
++----+---------+-----------+
+| id | name    | address   |
++----+---------+-----------+
+| c1 | Ramesh  | Ahmedabad |
+| c2 | khilan  | Delhi     |
+| c3 | Kaushik | Kota      |
+| c4 | Hardik  | Mumbai    |
+| c5 | Deep    | Bhopal    |
+| c6 | Komal   | Mumbai    |
+| c7 | Muffy   | Indore    |
+| c8 | Chintan | Ahmedabad |
++----+---------+-----------+
+8 rows in set (0.00 sec)
+
+3->>mysql> select id,name,salary from Customer where id="c7";
++----+-------+----------+
+| id | name  | salary   |
++----+-------+----------+
+| c7 | Muffy | 10000.00 |
++----+-------+----------+
+1 row in set (0.00 sec)
+
+4->>mysql> select id,name,salary from Customer where salary>1500;
++----+---------+----------+
+| id | name    | salary   |
++----+---------+----------+
+| c1 | Ramesh  |  2000.00 |
+| c3 | Kaushik |  2000.00 |
+| c4 | Hardik  |  6500.00 |
+| c5 | Deep    |  8500.00 |
+| c6 | Komal   |  4500.00 |
+| c7 | Muffy   | 10000.00 |
++----+---------+----------+
+6 rows in set (0.00 sec)
+
+5->>mysql> select name from Customer where salary<=5000;
++---------+
+| name    |
++---------+
+| Ramesh  |
+| khilan  |
+| Kaushik |
+| Komal   |
+| Chintan |
++---------+
+5 rows in set (0.00 sec)
+
+6->>mysql> select salary from Customer where id="c7";
++----------+
+| salary   |
++----------+
+| 10000.00 |
++----------+
+1 row in set (0.00 sec)
+
+7->>mysql> select age,name from Customer where salary>=10000;
++------+-------+
+| age  | name  |
++------+-------+
+|   22 | Muffy |
++------+-------+
+1 row in set (0.00 sec)
+
+mysql> update Customer
+    -> set salary=5000
+    -> where id="c2";
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Customer;
++----+---------+------+-----------+----------+------------+
+| id | NAME    | Age  | ADDRESS   | SALARY   | DOB        |
++----+---------+------+-----------+----------+------------+
+| c1 | Ramesh  |   32 | Ahmedabad |  2000.00 | 1987-02-12 |
+| c2 | khilan  |   26 | Delhi     |  5000.00 | 1990-04-21 |
+| c3 | Kaushik |   25 | Kota      |  2000.00 | 1999-11-24 |
+| c4 | Hardik  |   23 | Mumbai    |  6500.00 | 1984-05-13 |
+| c5 | Deep    |   24 | Bhopal    |  8500.00 | 1988-02-01 |
+| c6 | Komal   |   27 | Mumbai    |  4500.00 | 2000-02-23 |
+| c7 | Muffy   |   22 | Indore    | 10000.00 | 1998-02-02 |
+| c8 | Chintan |   34 | Ahmedabad |  1500.00 | 1987-11-12 |
++----+---------+------+-----------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> update Customer
+    -> set age=25
+    -> where id="c6";
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Customer;
++----+---------+------+-----------+----------+------------+
+| id | NAME    | Age  | ADDRESS   | SALARY   | DOB        |
++----+---------+------+-----------+----------+------------+
+| c1 | Ramesh  |   32 | Ahmedabad |  2000.00 | 1987-02-12 |
+| c2 | khilan  |   26 | Delhi     |  5000.00 | 1990-04-21 |
+| c3 | Kaushik |   25 | Kota      |  2000.00 | 1999-11-24 |
+| c4 | Hardik  |   23 | Mumbai    |  6500.00 | 1984-05-13 |
+| c5 | Deep    |   24 | Bhopal    |  8500.00 | 1988-02-01 |
+| c6 | Komal   |   25 | Mumbai    |  4500.00 | 2000-02-23 |
+| c7 | Muffy   |   22 | Indore    | 10000.00 | 1998-02-02 |
+| c8 | Chintan |   34 | Ahmedabad |  1500.00 | 1987-11-12 |
++----+---------+------+-----------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> update Customer
+    -> set salary=20000
+    -> where salary=1500;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Customer;
++----+---------+------+-----------+----------+------------+
+| id | NAME    | Age  | ADDRESS   | SALARY   | DOB        |
++----+---------+------+-----------+----------+------------+
+| c1 | Ramesh  |   32 | Ahmedabad |  2000.00 | 1987-02-12 |
+| c2 | khilan  |   26 | Delhi     |  5000.00 | 1990-04-21 |
+| c3 | Kaushik |   25 | Kota      |  2000.00 | 1999-11-24 |
+| c4 | Hardik  |   23 | Mumbai    |  6500.00 | 1984-05-13 |
+| c5 | Deep    |   24 | Bhopal    |  8500.00 | 1988-02-01 |
+| c6 | Komal   |   25 | Mumbai    |  4500.00 | 2000-02-23 |
+| c7 | Muffy   |   22 | Indore    | 10000.00 | 1998-02-02 |
+| c8 | Chintan |   34 | Ahmedabad | 20000.00 | 1987-11-12 |
++----+---------+------+-----------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> update Customer
+    -> set salary=25000
+    -> where salary=2000;
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select*from Customer;
++----+---------+------+-----------+----------+------------+
+| id | NAME    | Age  | ADDRESS   | SALARY   | DOB        |
++----+---------+------+-----------+----------+------------+
+| c1 | Ramesh  |   32 | Ahmedabad | 25000.00 | 1987-02-12 |
+| c2 | khilan  |   26 | Delhi     |  5000.00 | 1990-04-21 |
+| c3 | Kaushik |   25 | Kota      | 25000.00 | 1999-11-24 |
+| c4 | Hardik  |   23 | Mumbai    |  6500.00 | 1984-05-13 |
+| c5 | Deep    |   24 | Bhopal    |  8500.00 | 1988-02-01 |
+| c6 | Komal   |   25 | Mumbai    |  4500.00 | 2000-02-23 |
+| c7 | Muffy   |   22 | Indore    | 10000.00 | 1998-02-02 |
+| c8 | Chintan |   34 | Ahmedabad | 20000.00 | 1987-11-12 |
++----+---------+------+-----------+----------+------------+
+8 rows in set (0.00 sec)
+
+mysql> select name
+    -> from Customer
+    -> where salary=5000 and id="c2";
++--------+
+| name   |
++--------+
+| khilan |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select name from Customer where salary>5000 or id="c3";
++---------+
+| name    |
++---------+
+| Ramesh  |
+| Kaushik |
+| Hardik  |
+| Deep    |
+| Muffy   |
+| Chintan |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> select name from Customer where salary>5000 || id="c3";
++---------+
+| name    |
++---------+
+| Ramesh  |
+| Kaushik |
+| Hardik  |
+| Deep    |
+| Muffy   |
+| Chintan |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> select name from Customer where salary>5000 && id="c3";
++---------+
+| name    |
++---------+
+| Kaushik |
++---------+
+1 row in set (0.00 sec)
+
+
+

@@ -1,0 +1,79 @@
+CREATE TABLE CARS
+	(Car_Id VARCHAR(10) PRIMARY KEY,
+	Car_Name VARCHAR(30) DEFAULT "BALENO",
+	Car_Company_Name VARCHAR(30),
+	Owner_Name VARCHAR(30),
+	Car_Price NUMERIC(10,0),
+	Car_Launch_Year DATE );
+
+
+INSERT INTO CARS VALUES ( "C101",  "I_10", "Hyundai", "Vijay Shankar Sharma", 545000, '2008-01-25');
+
+INSERT INTO CARS VALUES ( "C102",  "I_20", "Hyundai", "Hinal Manav Desai ", 678000, '2010-06-20');
+
+INSERT INTO CARS VALUES ( "C103",  "City", "Honda", "Ravi Kirit Verma ", 150000, '2011-06-11');
+
+INSERT INTO CARS VALUES ( "C104",  "Seltos", "Kia", "Vikas Jinal Seth ", 250000, '2020-10-25');
+
+INSERT INTO CARS VALUES ( "C105",  "Hector", "MG", "Nirav Akhil Navani", 350000, '2021-01-14');
+
+INSERT INTO CARS VALUES ( "C107",  "G10", "BMW", "Gaurav Manish Verma", 1023000, '2019-08-16');
+
+INSERT INTO CARS VALUES ( "C108",  "Baleno", "Suzuki", "Girish Naman Sethia", 780000, '2020-09-23');
+
+INSERT INTO CARS VALUES ( "C109",  "Kreta", "Hyundai", "Khushaboo Sahani", 160000, '2021-02-13');
+
+SELECT *FROM CARS
+	WHERE Car_Price > 1600000 AND Car_Name LIKE 'G%';
+
+SELECT *FROM CARS
+	 WHERE Car_Company_Name IN ("Hyundai", "BMW", "MG");
+
+SELECT MIN(Car_Price), MAX(Car_Price), AVG(Car_Price) 
+	FROM CARS;
+
+SELECT Car_Name, Car_Company_Name, Car_Price
+	FROM CARS 
+	WHERE Owner_Name LIKE 'G%n%a'
+	
+SELECT *FROM CARS 
+	 WHERE Car_Price BETWEEN 250000 AND 780000;
+
+SELECT *FROM CARS 
+	WHERE Car_Name NOT IN ("MG", "Hyundai", "Kia");
+
+SELECT Car_Name, Car_Price +(Car_Price*0.07)
+	FROM CARS;
+
+SELECT COUNT(*) FROM CARS;
+
+ALTER TABLE CARS 
+	CHANGE Car_Name C_Name VARCHAR (20);
+
+ALTER TABLE CARS 
+	DROP COLUMN Car_Launch_Year;
+
+ALTER TABLE CARS
+	ADD LaunchDate DATE ;
+
+ALTER TABLE CARS 
+	MODIFY C_Name VARCHAR(30);
+
+
+ALTER TABLE CARS
+	RENAME CAR_Details;
+	
+
+
+
+
+ 
+
+	
+	
+	
+
+
+
+
+	

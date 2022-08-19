@@ -1,0 +1,157 @@
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| Ajay               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use Ajay;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> CREATE TABLE Movie
+    -> (Movie_id int PRIMARY KEY,
+    -> Movie_name VARCHAR(100) NOT NULL,
+    -> Actor VARCHAR(100) UNIQUE NOT NULL,
+    -> Release_date DATE,
+    -> Actor_experience NUMERIC,
+    -> Actor_income NUMERIC default "1000");
+Query OK, 0 rows affected (0.32 sec)
+
+mysql> insert into Movie values(1,"Shershaah","Sidharth","2021-12-15",15,15000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into Movie values(2,"Toofan","Arjun","2021-05-11",10,25000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Movie values(3,"Tadap","Ahan","2022-01-11",5,20000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into Movie values(4,"Shiddat","Radhika","2022-01-22",20,21000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Movie values(5,"Mastizaade","Sunny","2020-04-01",30,90000);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Movie values(6,"Karma","Vihaan","2021-06-06",10,80000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select *from Movie;
++----------+------------+----------+--------------+------------------+--------------+
+| Movie_id | Movie_name | Actor    | Release_date | Actor_experience | Actor_income |
++----------+------------+----------+--------------+------------------+--------------+
+|        1 | Shershaah  | Sidharth | 2021-12-15   |               15 |        15000 |
+|        2 | Toofan     | Arjun    | 2021-05-11   |               10 |        25000 |
+|        3 | Tadap      | Ahan     | 2022-01-11   |                5 |        20000 |
+|        4 | Shiddat    | Radhika  | 2022-01-22   |               20 |        21000 |
+|        5 | Mastizaade | Sunny    | 2020-04-01   |               30 |        90000 |
+|        6 | Karma      | Vihaan   | 2021-06-06   |               10 |        80000 |
++----------+------------+----------+--------------+------------------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> desc Movie;
++------------------+---------------+------+-----+---------+-------+
+| Field            | Type          | Null | Key | Default | Extra |
++------------------+---------------+------+-----+---------+-------+
+| Movie_id         | int(11)       | NO   | PRI | NULL    |       |
+| Movie_name       | varchar(100)  | NO   |     | NULL    |       |
+| Actor            | varchar(100)  | NO   | UNI | NULL    |       |
+| Release_date     | date          | YES  |     | NULL    |       |
+| Actor_experience | decimal(10,0) | YES  |     | NULL    |       |
+| Actor_income     | decimal(10,0) | YES  |     | 1000    |       |
++------------------+---------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select Movie_id,Movie_name,Actor from Movie;
++----------+------------+----------+
+| Movie_id | Movie_name | Actor    |
++----------+------------+----------+
+|        1 | Shershaah  | Sidharth |
+|        2 | Toofan     | Arjun    |
+|        3 | Tadap      | Ahan     |
+|        4 | Shiddat    | Radhika  |
+|        5 | Mastizaade | Sunny    |
+|        6 | Karma      | Vihaan   |
++----------+------------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select Actor,Actor_income from Movie where Actor_experience>5;
++----------+--------------+
+| Actor    | Actor_income |
++----------+--------------+
+| Sidharth |        15000 |
+| Arjun    |        25000 |
+| Radhika  |        21000 |
+| Sunny    |        90000 |
+| Vihaan   |        80000 |
++----------+--------------+
+5 rows in set (0.02 sec)
+
+mysql> select Movie_id,Movie_name,Actor,Actor_income*1.1 as New_income from Movie;
++----------+------------+----------+------------+
+| Movie_id | Movie_name | Actor    | New_income |
++----------+------------+----------+------------+
+|        1 | Shershaah  | Sidharth |    16500.0 |
+|        2 | Toofan     | Arjun    |    27500.0 |
+|        3 | Tadap      | Ahan     |    22000.0 |
+|        4 | Shiddat    | Radhika  |    23100.0 |
+|        5 | Mastizaade | Sunny    |    99000.0 |
+|        6 | Karma      | Vihaan   |    88000.0 |
++----------+------------+----------+------------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT *FROM Movie WHERE Actor_income>50000 && Actor_income<100000;
++----------+------------+--------+--------------+------------------+--------------+
+| Movie_id | Movie_name | Actor  | Release_date | Actor_experience | Actor_income |
++----------+------------+--------+--------------+------------------+--------------+
+|        5 | Mastizaade | Sunny  | 2020-04-01   |               30 |        90000 |
+|        6 | Karma      | Vihaan | 2021-06-06   |               10 |        80000 |
++----------+------------+--------+--------------+------------------+--------------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE Movie SET Actor_income=7000 WHERE
+    -> Movie_id='5';
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> DELETE FROM Movie WHERE Actor = "Sunny";
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT *FROM Movie WHERE Actor_name="Ahan" OR Actor_experience>7;
+ERROR 1054 (42S22): Unknown column 'Actor_name' in 'where clause'
+mysql> SELECT *FROM Movie WHERE Actor="Ahan" OR Actor_experience>7;
++----------+------------+----------+--------------+------------------+--------------+
+| Movie_id | Movie_name | Actor    | Release_date | Actor_experience | Actor_income |
++----------+------------+----------+--------------+------------------+--------------+
+|        1 | Shershaah  | Sidharth | 2021-12-15   |               15 |        15000 |
+|        2 | Toofan     | Arjun    | 2021-05-11   |               10 |        25000 |
+|        3 | Tadap      | Ahan     | 2022-01-11   |                5 |        20000 |
+|        4 | Shiddat    | Radhika  | 2022-01-22   |               20 |        21000 |
+|        6 | Karma      | Vihaan   | 2021-06-06   |               10 |        80000 |
++----------+------------+----------+--------------+------------------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM Movie WHERE Release_date="2021-12-15";
+    
++----------+------------+----------+--------------+------------------+--------------+
+| Movie_id | Movie_name | Actor    | Release_date | Actor_experience | Actor_income |
++----------+------------+----------+--------------+------------------+--------------+
+|        1 | Shershaah  | Sidharth | 2021-12-15   |               15 |        15000 |
++----------+------------+----------+--------------+------------------+--------------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql> UPDATE Movie 
+    -> SET Actor_experience=12;
+Query OK, 5 rows affected (0.03 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> DELETE FROM Movie;
+
+mysql> DROP TABLE Movie;

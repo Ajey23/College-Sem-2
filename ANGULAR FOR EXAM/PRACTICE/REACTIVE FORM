@@ -1,0 +1,132 @@
+**********************REACTIVE FORM VALIDATION************************
+
+
+-----------------------app.module.ts
+
+import {ReactiveFormsModule} from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    AboutComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule
+  ],
+
+
+-------------------app-routing.module.ts
+
+import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component'
+
+const routes: Routes = 
+[
+  {path: 'home', component: HomeComponent},
+  {path: 'about', component: AboutComponent}
+];
+
+-------------------app.component.html
+
+<h2> REACTIVE FORM VALIDATION </h2>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+
+  <table >
+    <tr>
+      <td> <label>Login Form</label> </td>
+    </tr><br>
+
+    <tr>
+      <td> <label> Username </label></td>
+      <td> <input type="text" formControlName="username" /> </td>
+      <td>
+        <h5 *ngIf="submitted && f.username.errors">
+          <h5 *ngIf="f.username.errors.required"> Username is Required </h5>
+          <h5 *ngIf="f.username.errors.pattern">Username must be in Alphabet </h5>
+        </h5>
+      </td>
+    </tr>
+
+    <tr>
+      <td> <label>Email </label></td>
+      <td> <input type="text" formControlName="email" /> </td>
+      <td>
+        <h5 *ngIf="submitted && f.email.errors">
+          <h5 *ngIf="f.email.errors.required"> Email is Required </h5>
+          <h5 *ngIf="f.email.errors.email"> Please Enter Email in Proper Format </h5>
+        </h5>
+      </td>
+    </tr>
+    <br>
+    <tr>
+      <td> <button>Register</button></td>
+    </tr>
+  </table>
+  <br>
+
+  <a routerLink="home">Home</a> <br>
+  <a routerLink="about">About</a>
+  <router-outlet></router-outlet>
+  
+</form>
+
+-------------------------------app.component.ts
+
+import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
+
+
+  registerForm: FormGroup;
+  submitted = false;
+
+constructor(private formBuilder: FormBuilder)
+  {
+  this.registerForm=this.formBuilder.group({
+
+    username: ['',[ Validators.required, Validators.pattern('^[a-zA-Z]+$')]],
+    email: ['', [Validators.required, Validators.email]],
+
+  });
+}
+
+get f()
+{
+  return this.registerForm.controls;
+}
+onSubmit(data) {
+  this.submitted = true;
+  if (this.registerForm.invalid)
+  {
+  return;
+  }
+} 
+
+
+------------------------------home.component.ts
+
+
+ bheem=
+  [
+    {name: 'RAJU', age : 17},
+    {name: 'CHUTKI', age : 55},
+    {name: 'INDUMATI', age : 15},
+  ]
+
+
+------------------------------home.component.html
+
+
+<h1 *ngFor="let item of bheem">
+    {{item.name}},
+    {{item.age}} 
+</h1>
+
+
+
+
+

@@ -1,0 +1,230 @@
+NAME- AJAY NIVRUTTI SARODE
+ROLLNO- B02
+**********************************************************************************************************************************
+
+mysql> CREATE TABLE CARS
+    -> (Car_Id VARCHAR(10) PRIMARY KEY,
+    -> Car_Name VARCHAR(30) DEFAULT "BALENO",
+    -> Car_Company_Name VARCHAR(30),
+    -> Owner_Name VARCHAR(30),
+    -> Car_Price NUMERIC(10,0),
+    -> Car_Launch_Year DATE );
+Query OK, 0 rows affected (0.42 sec)
+
+mysql> INSERT INTO CARS VALUES ( "C101",  "I_10", "Hyundai", "Vijay Shankar Sharma", 545000, '2008-01-25');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> 
+mysql> INSERT INTO CARS VALUES ( "C102",  "I_20", "Hyundai", "Hinal Manav Desai ", 678000, '2010-06-20');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO CARS VALUES ( "C103",  "City", "Honda", "Ravi Kirit Verma ", 150000, '2011-06-11');
+Query OK, 1 row affected (0.08 sec)
+
+mysql> 
+mysql> INSERT INTO CARS VALUES ( "C104",  "Seltos", "Kia", "Vikas Jinal Seth ", 250000, '2020-10-25');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO CARS VALUES ( "C105",  "Hector", "MG", "Nirav Akhil Navani", 350000, '2021-01-14');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO CARS VALUES ( "C107",  "G10", "BMW", "Gaurav Manish Verma", 1023000, '2019-08-16');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> 
+mysql> INSERT INTO CARS VALUES ( "C108",  "Baleno", "Suzuki", "Girish Naman Sethia", 780000, '2020-09-23');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> 
+mysql> INSERT INTO CARS VALUES ( "C109",  "Kreta", "Hyundai", "Khushaboo Sahani", 160000, '2021-02-13');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT *FROM CARS
+    -> WHERE Car_Price > 1600000 AND Car_Name LIKE 'G%';
+Empty set (0.00 sec)
+
+mysql> SELECT *FROM CARS
+    ->  WHERE Car_Company_Name IN ("Hyundai", "BMW", "MG");
++--------+----------+------------------+----------------------+-----------+-----------------+
+| Car_Id | Car_Name | Car_Company_Name | Owner_Name           | Car_Price | Car_Launch_Year |
++--------+----------+------------------+----------------------+-----------+-----------------+
+| C101   | I_10     | Hyundai          | Vijay Shankar Sharma |    545000 | 2008-01-25      |
+| C102   | I_20     | Hyundai          | Hinal Manav Desai    |    678000 | 2010-06-20      |
+| C105   | Hector   | MG               | Nirav Akhil Navani   |    350000 | 2021-01-14      |
+| C107   | G10      | BMW              | Gaurav Manish Verma  |   1023000 | 2019-08-16      |
+| C109   | Kreta    | Hyundai          | Khushaboo Sahani     |    160000 | 2021-02-13      |
++--------+----------+------------------+----------------------+-----------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT MIN(Car_Price), MAX(Car_Price), AVG(Car_Price) 
+    -> FROM CARS;
++----------------+----------------+----------------+
+| MIN(Car_Price) | MAX(Car_Price) | AVG(Car_Price) |
++----------------+----------------+----------------+
+|         150000 |        1023000 |    492000.0000 |
++----------------+----------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT Car_Name, Car_Company_Name, Car_Price
+    -> FROM CARS 
+    -> WHERE Owner_Name LIKE 'G%n%a';
++----------+------------------+-----------+
+| Car_Name | Car_Company_Name | Car_Price |
++----------+------------------+-----------+
+| G10      | BMW              |   1023000 |
+| Baleno   | Suzuki           |    780000 |
++----------+------------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT *FROM CARS 
+    ->  WHERE Car_Price BETWEEN 250000 AND 780000;
++--------+----------+------------------+----------------------+-----------+-----------------+
+| Car_Id | Car_Name | Car_Company_Name | Owner_Name           | Car_Price | Car_Launch_Year |
++--------+----------+------------------+----------------------+-----------+-----------------+
+| C101   | I_10     | Hyundai          | Vijay Shankar Sharma |    545000 | 2008-01-25      |
+| C102   | I_20     | Hyundai          | Hinal Manav Desai    |    678000 | 2010-06-20      |
+| C104   | Seltos   | Kia              | Vikas Jinal Seth     |    250000 | 2020-10-25      |
+| C105   | Hector   | MG               | Nirav Akhil Navani   |    350000 | 2021-01-14      |
+| C108   | Baleno   | Suzuki           | Girish Naman Sethia  |    780000 | 2020-09-23      |
++--------+----------+------------------+----------------------+-----------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM CARS 
+    -> WHERE Car_Name NOT IN ("MG", "Hyundai", "Kia");
++--------+----------+------------------+----------------------+-----------+-----------------+
+| Car_Id | Car_Name | Car_Company_Name | Owner_Name           | Car_Price | Car_Launch_Year |
++--------+----------+------------------+----------------------+-----------+-----------------+
+| C101   | I_10     | Hyundai          | Vijay Shankar Sharma |    545000 | 2008-01-25      |
+| C102   | I_20     | Hyundai          | Hinal Manav Desai    |    678000 | 2010-06-20      |
+| C103   | City     | Honda            | Ravi Kirit Verma     |    150000 | 2011-06-11      |
+| C104   | Seltos   | Kia              | Vikas Jinal Seth     |    250000 | 2020-10-25      |
+| C105   | Hector   | MG               | Nirav Akhil Navani   |    350000 | 2021-01-14      |
+| C107   | G10      | BMW              | Gaurav Manish Verma  |   1023000 | 2019-08-16      |
+| C108   | Baleno   | Suzuki           | Girish Naman Sethia  |    780000 | 2020-09-23      |
+| C109   | Kreta    | Hyundai          | Khushaboo Sahani     |    160000 | 2021-02-13      |
++--------+----------+------------------+----------------------+-----------+-----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT Car_Name, Car_Price +(Car_Price*0.07)
+    -> FROM CARS;
++----------+-----------------------------+
+| Car_Name | Car_Price +(Car_Price*0.07) |
++----------+-----------------------------+
+| I_10     |                   583150.00 |
+| I_20     |                   725460.00 |
+| City     |                   160500.00 |
+| Seltos   |                   267500.00 |
+| Hector   |                   374500.00 |
+| G10      |                  1094610.00 |
+| Baleno   |                   834600.00 |
+| Kreta    |                   171200.00 |
++----------+-----------------------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM CARS;
++----------+
+| COUNT(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE CARS 
+    -> CHANGE Car_Name C_Name VARCHAR (20);
+Query OK, 8 rows affected (0.85 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE CARS 
+    -> DROP COLUMN Car_Launch_Year;
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE CARS
+    -> ADD LaunchDate DATE ;
+Query OK, 0 rows affected (0.63 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE CARS 
+    -> MODIFY C_Name VARCHAR(30);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE CARS
+    -> RENAME CAR_Details;
+Query OK, 0 rows affected (0.13 sec)
+
+
+
+***********************************************************************************************************************************
+
+
+a) Display the details of Car where salary is greater than 160000 and name start with ‘G’.
+
+SELECT *FROM CARS
+	WHERE Car_Price > 1600000 AND Car_Name LIKE 'G%';
+
+b) Display the car details wich includes only Hyundai , BMW , & MG as company name.
+
+SELECT *FROM CARS
+	 WHERE Car_Company_Name IN ("Hyundai", "BMW", "MG");
+
+c) Display the maximum , minimum and average salary with new name in a single query.
+
+SELECT MIN(Car_Price), MAX(Car_Price), AVG(Car_Price) 
+	FROM CARS;
+
+d) Display car name , company name , price where Owner name starts with G and n comes
+anywhere and it ends with a.
+
+SELECT Car_Name, Car_Company_Name, Car_Price
+	FROM CARS 
+	WHERE Owner_Name LIKE 'G%n%a';
+
+e) Display the car details where price ranges within 250000 to 780000.
+
+SELECT *FROM CARS 
+	 WHERE Car_Price BETWEEN 250000 AND 780000;
+
+f) Display the details of car which should not include company name MG , Hyundai, Kia.
+
+SELECT *FROM CARS 
+	WHERE Car_Name NOT IN ("MG", "Hyundai", "Kia");
+
+g) Display the name and price where price has an increment of 7%.
+
+SELECT Car_Name, Car_Price +(Car_Price*0.07)
+	FROM CARS;
+
+h) Display the total number of rows in the table
+
+SELECT COUNT(*) FROM CARS;
+
+i) Change the column name Car_Name as C_Name.
+
+ALTER TABLE CARS 
+	CHANGE Car_Name C_Name VARCHAR (20);
+
+j) Drop the column car Launch year .
+
+ALTER TABLE CARS 
+	DROP COLUMN Car_Launch_Year;
+
+k) Add new column as Launch Date.
+
+ALTER TABLE CARS
+	ADD LaunchDate DATE ;
+
+l) Modify the size of car name as 30.
+
+ALTER TABLE CARS 
+	MODIFY C_Name VARCHAR(30);
+
+m) Change the table name as Car_Details.
+
+ALTER TABLE CARS
+	RENAME CAR_Details;
+
+
